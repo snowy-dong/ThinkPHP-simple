@@ -1,0 +1,29 @@
+<include  file='public:header'/>
+<include  file='public:layout-top'/>
+<ol class="breadcrumb">
+    <li><a href="#">商品</a></li>
+    <li><a href="#">商品添加</a></li>
+</ol>
+<form class="form-inline" method="post" action="{:U('List/goods_Add')}">
+    <div class="input-group">
+        <span class="input-group-addon">商品名</span>
+        <input type="text" name="goodsName" class="form-control" placeholder="GoodsName">
+    </div>
+
+    <div class="input-group">
+       <select name="goods_class"  class="form-control">
+           <volist  name="goods_class" id="item">
+                  <option value="{$item['class_id']}" selected="{$item['class_id']}" >{$item['class_name']}</option>
+           </volist>
+       </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">￥</span>
+        <input type="text" name="goodsPrice" class="form-control">
+        <span class="input-group-addon">.00</span>
+    </div>
+    <button type="submit" class="btn btn-success">添加</button>
+</form>
+
+<include  file='public:footer'/>

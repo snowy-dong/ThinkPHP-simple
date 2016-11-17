@@ -1,0 +1,106 @@
+<include  file='public:header'/>
+<include  file='public:layout-top'/>
+<ol class="breadcrumb">
+    <li><a href="#">商品</a></li>
+    <li><a href="{:U('List/goodsList')}">商品列表</a></li>
+</ol>
+
+
+<form class="form-inline" method="get" action="{:U('List/goodsList')}">
+    商品名称：
+    <div class="input-group">
+        <input type="text" name="goodsname" class="form-control goodsname">
+    </div>
+    <div class="input-group">
+        <select name="goods_class"  class="form-control goods_class">
+            <option value="-1" >请选择</option>
+            <volist  name="goods_class" id="item">
+                <option value="{$item['class_id']}">{$item['class_name']}</option>
+            </volist>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">搜索</button>
+    <a  type="button" class="btn btn-success pull-right" href="{:U('List/goodsAdd')}">添加商品</a>
+</form>
+<br/>
+<table class="table table-bordered table-hover" >
+    <thead>
+        <th>商品id</th>
+        <th>商品名称</th>
+        <th>商品分类</th>
+        <th>商品价格</th>
+        <th>操作</th>
+    </thead>
+    <tbody>
+    <volist  name="goodslist" id="item">
+            <tr>
+                <td>{$item['id']}</td>
+                <td>{$item['goodsname']}</td>
+                <td>{$item['class_name']}</td>
+                <td>{$item['goodsprice']}</td>
+                <td>
+                    <a   onclick="delgoods('{$item.id}','{$item.goodsname}','{$item.class_id}','{$item.goodsprice}')" data-toggle="modal" data-target="#myModal">修改</a>
+                    <a href="{:U('List/goodsDel',array('id'=>$item['id']) )}">删除</a>
+
+                </td>
+            </tr>
+    </volist>
+
+    </tbody>
+</table>
+<div class="pagination">{$page}</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form method="post" action="{:U('List/goodsUpdate')}"  class="modal-dialog form-inline">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改商品</h4>
+            </div>
+            <div class="modal-body">
+                    <input type="hidden" name="goodsId" class="goodsId">
+                    <div class="input-group">
+                        <span class="input-group-addon">商品名</span>
+                        <input type="text" name="goodsName" class="form-control goodsName" placeholder="GoodsName">
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">商品分类</span>
+                        <select name="goods_class"  class="form-control goods_class">
+                            <volist  name="goods_class" id="item">
+                                <option value="{$item['class_id']}" selected="{$item['class_id']}" >{$item['class_name']}</option>
+                            </volist>
+                        </select>
+                    </div>
+
+                    <div class="input-group"style="margin-top: 15px">
+
+                        <span class="input-group-addon">商品价格￥</span>
+                        <input type="text" name="goodsPrice" class="form-control goodsPrice">
+                        <span class="input-group-addon">.00</span>
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">保存修改</button>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+<script>
+    function delgoods(id,goodsname,goodsclass,goodsprice){
+        $(".goodsId").val(id);
+        $(".goodsName").val(goodsname);
+        $(".goodsPrice").val(goodsprice);
+        $(".goods_class").val(goodsclass);
+    }
+
+</script>
+
+<include  file='public:footer'/>

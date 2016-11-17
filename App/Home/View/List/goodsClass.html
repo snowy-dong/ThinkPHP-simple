@@ -1,0 +1,31 @@
+<include  file='public:header'/>
+<include  file='public:layout-top'/>
+<ol class="breadcrumb">
+    <li><a href="#">商品</a></li>
+    <li><a href="#">分类添加</a></li>
+</ol>
+<form class="form-inline" method="post" action="{:U('List/AddGoodsClass')}">
+    添加分类：
+    <div class="input-group">
+        <input type="text" name="className" class="form-control" placeholder="商品分类">
+    </div>
+    <button type="submit" class="btn btn-success" >添加</button>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <th>分类id</th>
+        <th>分类名称</th>
+    </thead>
+    <tbody>
+    <volist name="list" id="item">
+        <tr>
+            <td>{$item['class_id']}</td>
+            <td>{$item['class_name']}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+
+
+<include  file='public:footer'/>
